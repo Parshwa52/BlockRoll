@@ -5,7 +5,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
-import { getTotal } from "./utils";
+import { getCurrUsername, getCurrAcc } from "./utils";
 
 // This is the blockchain object we receive using web3
 const APIobject = 100;
@@ -54,40 +54,21 @@ const DesiredTypography = (props) => {
     return result;
 };
 
-export default function Review({ addressform, username, address }) {
+export default function Review({ username, amount, address }) {
     const classes = useStyles();
-    const temp = "dfrgt";
 
     const products = [
         {
-            name: "PayRate",
-            desc: "Payment Rate",
-            color: "green",
-            price: addressform.Paymentrate,
-        },
-        {
-            name: "Duration",
-            desc: "Duration of Task",
-            color: "green",
-            price: addressform.Duration,
-        },
-        {
-            name: "OriginalPayment",
-            desc: "Payment",
-            color: "green",
-            price: addressform.Paymentrate * addressform.Duration,
-        },
-        {
-            name: "Leaves Cost",
-            desc: "Amount deducted for leaves",
+            name: "BlockRolls",
+            desc: "Amount of BlockRoll transferred",
             color: "red",
-            price: addressform.Leaves * addressform.Leavecost,
+            price: amount,
         },
         {
-            name: "Delay Cost",
-            desc: "Amount deducted for delays",
+            name: "Trasaction Fees",
+            desc: "Amount deducted for transaction",
             color: "red",
-            price: addressform.delayeddays * addressform.delaycostperday,
+            price: "0",
         },
     ];
 
@@ -118,7 +99,7 @@ export default function Review({ addressform, username, address }) {
                 <ListItem className={classes.listItem}>
                     <ListItemText primary="Total" />
                     <Typography variant="subtitle1" className={classes.total}>
-                        {getTotal(addressform)}
+                        {amount}
                     </Typography>
                 </ListItem>
             </List>
