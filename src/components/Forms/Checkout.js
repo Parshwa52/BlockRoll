@@ -1,44 +1,56 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Paper from '@material-ui/core/Paper';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
-import AddressForm from './AddressForm';
-import PaymentForm from './PaymentForm';
-import Review from './Review';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Paper from "@material-ui/core/Paper";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
+import Typography from "@material-ui/core/Typography";
+import AddressForm from "./AddressForm";
+import PaymentForm from "./PaymentForm";
+import Review from "./Review";
+
+// custom imports
+import { useAddress } from "./utils";
+
+const INIT_DATA = {
+    payrate: undefined,
+    duration: undefined,
+    leaves: undefined,
+    leavecost: undefined,
+    delayeddays: undefined,
+    delaycostperday: undefined,
+};
 
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
+            {"Copyright © "}
             <Link color="inherit" href="https://material-ui.com/">
                 Your Website
-      </Link>{' '}
+            </Link>{" "}
             {new Date().getFullYear()}
-            {'.'}
+            {"."}
         </Typography>
     );
 }
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
-        position: 'relative',
+        position: "relative",
     },
     layout: {
-        width: 'auto',
+        width: "auto",
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2),
         [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
             width: 600,
-            marginLeft: 'auto',
-            marginRight: 'auto',
+            marginLeft: "auto",
+            marginRight: "auto",
         },
     },
     paper: {
@@ -55,8 +67,8 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(3, 0, 5),
     },
     buttons: {
-        display: 'flex',
-        justifyContent: 'flex-end',
+        display: "flex",
+        justifyContent: "flex-end",
     },
     button: {
         marginTop: theme.spacing(3),
@@ -64,25 +76,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
-
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return <AddressForm />;
-        case 1:
-            return <PaymentForm />;
-        case 2:
-            return <Review />;
-        default:
-            throw new Error('Unknown step');
-    }
-}
+const steps = ["Payment details", "Payroll Details", "Transaction Summary"];
 
 export default function Checkout() {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     // add data sates here
+    const [formData, setFormData] = React.useState(INIT_DATA);
+    const [username, address, setUsername] = useAddress("");
 
     const handleNext = () => {
         setActiveStep(activeStep + 1);
@@ -92,14 +93,37 @@ export default function Checkout() {
         setActiveStep(activeStep - 1);
     };
 
+    function getStepContent(step) {
+        switch (step) {
+            case 0:
+                return (
+                    <PaymentForm
+                        username={username}
+                        address={address}
+                        setUsername={setUsername}
+                    />
+                );
+            case 1:
+                return <AddressForm />;
+            case 2:
+                return <Review />;
+            default:
+                throw new Error("Unknown step");
+        }
+    }
+
     return (
         <React.Fragment>
             <CssBaseline />
-            <AppBar position="absolute" color="default" className={classes.appBar}>
+            <AppBar
+                position="absolute"
+                color="default"
+                className={classes.appBar}
+            >
                 <Toolbar>
                     <Typography variant="h6" color="inherit" noWrap>
                         Company name
-          </Typography>
+                    </Typography>
                 </Toolbar>
             </AppBar>
             <main className={classes.layout}>
@@ -107,7 +131,10 @@ export default function Checkout() {
                     <Typography component="h1" variant="h4" align="center">
                         Checkout
                     </Typography>
-                    <Stepper activeStep={activeStep} className={classes.stepper}>
+                    <Stepper
+                        activeStep={activeStep}
+                        className={classes.stepper}
+                    >
                         {steps.map((label) => (
                             <Step key={label}>
                                 <StepLabel>{label}</StepLabel>
@@ -121,30 +148,37 @@ export default function Checkout() {
                                     Thank you for your order.
                                 </Typography>
                                 <Typography variant="subtitle1">
-                                    Your order number is #2001539. We have emailed your order confirmation, and will
-                                    send you an update when your order has shipped.
+                                    Your order number is #2001539. We have
+                                    emailed your order confirmation, and will
+                                    send you an update when your order has
+                                    shipped.
                                 </Typography>
                             </React.Fragment>
                         ) : (
-                                <React.Fragment>
-                                    {getStepContent(activeStep)}
-                                    <div className={classes.buttons}>
-                                        {activeStep !== 0 && (
-                                            <Button onClick={handleBack} className={classes.button}>
-                                                Back
-                                            </Button>
-                                        )}
+                            <React.Fragment>
+                                {getStepContent(activeStep)}
+                                <div className={classes.buttons}>
+                                    {activeStep !== 0 && (
                                         <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={handleNext}
+                                            onClick={handleBack}
                                             className={classes.button}
                                         >
-                                            {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                                            Back
                                         </Button>
-                                    </div>
-                                </React.Fragment>
-                            )}
+                                    )}
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={handleNext}
+                                        className={classes.button}
+                                    >
+                                        {activeStep === steps.length - 1
+                                            ? "Place order"
+                                            : "Next"}
+                                    </Button>
+                                </div>
+                            </React.Fragment>
+                        )}
                     </React.Fragment>
                 </Paper>
                 <Copyright />
