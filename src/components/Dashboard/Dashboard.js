@@ -24,8 +24,12 @@ import Deposits from './Deposits';
 import Orders from './Orders';
 import LogoutMenu from '../LogoutMenu/LogoutMenu';
 import Web3 from 'web3';
+import freelance from './../../abis/freelance.json';
 
 const drawerWidth = 240;
+
+
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -119,6 +123,53 @@ export default function Dashboard() {
         setOpen(false);
     };
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum);
+      try {
+        // Request account access if needed
+        window.ethereum.enable();
+        console.log(window.web3);
+        //console.log(web3.eth.getAccounts());
+        // Acccounts now exposed
+      } catch (error) {
+        // User denied account access...
+      }
+    }
+    // Legacy dapp browsers...
+    else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider);
+      console.log(window.web3);
+      // Acccounts always exposed
+    }
+    // Non-dapp browsers...
+    else {
+      console.log(
+        "Non-Ethereum browser detected. You should consider trying MetaMask!"
+      );
+    }
+
+    
+    const web3=window.web3;
+    console.log("from dashboard");
+    console.log(web3);
+    console.log(web3.eth.getAccounts());
+    const networkId= web3.eth.net.getId();
+   console.log(networkId);
+   console.log(freelance);
+    const networkdata=freelance.networks[networkId];
+    console.log(networkdata);
+    if(networkdata)
+    {
+      const abi=freelance.abi;
+      //console.log(freelance.abi);
+      const freelancecon=new web3.eth.Contract(abi,networkdata.address);
+
+      console.log(freelancecon);
+      const balance= freelancecon.methods.getBalance("0x5431ED8e4E4f6D36E993e72083D6AE8e00Ca269b").call();
+      console.log(balance);
+
+    }
 
     return (
         <div className={classes.root}>

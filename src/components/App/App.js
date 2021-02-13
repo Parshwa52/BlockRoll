@@ -8,6 +8,8 @@ import Landing from "../Landing/Landing";
 import Web3 from 'web3';
 import freelance from './../../abis/freelance.json';
 import DirectSend from "../DirectForm/Checkout";
+
+let web3provider;
 class App extends Component
  {
   constructor(props) {
