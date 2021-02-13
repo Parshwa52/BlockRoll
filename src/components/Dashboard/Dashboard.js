@@ -23,6 +23,7 @@ import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
 import LogoutMenu from '../LogoutMenu/LogoutMenu';
+import Web3 from 'web3';
 
 const drawerWidth = 240;
 

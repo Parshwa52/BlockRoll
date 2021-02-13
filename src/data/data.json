@@ -1,0 +1,52 @@
+{
+    "Header": {
+
+        "title": "BlockRoll",
+        "paragraph": "The ultimate Blockchain based payroll system"
+
+    },
+    "About": {
+        "paragraph": "BlockRoll is a blockchain based payroll system",
+        "Why": [
+            "Payments Tracking",
+            "Decentralised",
+            "Rupee based token",
+            "Easy Money for freelancers"
+        ],
+        "Why2": [
+            "Easy to use",
+            "Easy to track payments"
+            
+        ]
+    },
+    
+    "Contact": {
+        "address": "Mumbai,Maharashtra,India ",
+        "phone": "1234567890",
+        "email": "info@company.com",
+        "facebook": "fb.com",
+        "twitter": "twitter.com",
+        "youtube": "youtube.com"
+    },
+    "Features": [{
+            "icon": "img/features/rupee.jpg",
+            "title": "Rupee based tokens",
+            "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
+        },
+        {
+            "icon": "img/features/progress.jpg",
+            "title": "Payments Tracking",
+            "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
+        },
+        {
+            "icon": "img/features/bounty.jpg",
+            "title": "Easy Money for freelancers",
+            "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
+        },
+        {
+            "icon": "img/features/storage.jpg",
+            "title": "Decentralised",
+            "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
+        }
+    ]
+}
