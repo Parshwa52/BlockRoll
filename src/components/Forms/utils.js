@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 const getpayRate = (APIobject) => {
     return 10;
 }
@@ -34,7 +35,7 @@ const getDelayCost = (APIobject) => {
 }
 
 export {getpayRate,getDuration,getOriginalPayment,getLeavesCost,getDelayCost};
-import { useEffect, useState } from "react";
+
 
 const getAddress = (username) => {
     if (username === "rudresh") {
