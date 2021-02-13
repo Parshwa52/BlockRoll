@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -11,7 +11,8 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
-
+import BlockchainContext from "../../contexts/BlockChainContext";
+import Link from "@material-ui/core/Link";
 // custom imports
 import { useAddress } from "./utils";
 
@@ -55,15 +56,41 @@ const useStyles = makeStyles((theme) => ({
 const steps = ["Payment details", "Transaction Summary"];
 
 export default function Checkout() {
+    const { web3, accounts, contract } = useContext(BlockchainContext);
     const classes = useStyles();
     const [activeStep, setActiveStep] = useState(0);
     const [username, address, setUsername] = useAddress("");
     const [amount, setAmount] = useState();
+    const [loading, setLoading] = useState(false);
+
+    const sendTokens = async () => {
+        setLoading(true);
+        try {
+            await contract.methods
+                .sendtokens(
+                    accounts[0],
+                    address,
+                    amount,
+                    new Date().toLocaleString()
+                )
+                .send({ from: accounts[0] });
+        } catch (err) {
+            console.log("Error in send tokens");
+        }
+        setLoading(false);
+    };
 
     const handleNext = () => {
         if (activeStep == 0 && address === "") {
             alert("Enter valid Username");
             return;
+        }
+        if (activeStep == 0 && amount <= 0) {
+            alert("Enter valid Amount");
+            return;
+        }
+        if (activeStep == 1) {
+            sendTokens();
         }
         setActiveStep(activeStep + 1);
     };
@@ -107,7 +134,7 @@ export default function Checkout() {
             >
                 <Toolbar>
                     <Typography variant="h6" color="inherit" noWrap>
-                        BlockRoll
+                        <Link href="/dash">BlockRoll</Link>
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -129,15 +156,19 @@ export default function Checkout() {
                     <React.Fragment>
                         {activeStep === steps.length ? (
                             <React.Fragment>
-                                <Typography variant="h5" gutterBottom>
-                                    Thank you for your order.
-                                </Typography>
-                                <Typography variant="subtitle1">
-                                    Your order number is #2001539. We have
-                                    emailed your order confirmation, and will
-                                    send you an update when your order has
-                                    shipped.
-                                </Typography>
+                                {loading ? (
+                                    "Loading..."
+                                ) : (
+                                    <>
+                                        <Typography variant="h5" gutterBottom>
+                                            Transaction Successful
+                                        </Typography>
+                                        <Typography variant="subtitle1">
+                                            {amount} tokens have been sent to{" "}
+                                            {username} ({address})
+                                        </Typography>
+                                    </>
+                                )}
                             </React.Fragment>
                         ) : (
                             <React.Fragment>

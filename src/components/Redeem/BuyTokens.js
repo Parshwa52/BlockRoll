@@ -131,7 +131,7 @@ export default function Checkout() {
             >
                 <Toolbar>
                     <Typography variant="h6" color="inherit" noWrap>
-                        BlockRoll
+                        <Link href="/dash">BlockRoll</Link>
                     </Typography>
                 </Toolbar>
             </AppBar>

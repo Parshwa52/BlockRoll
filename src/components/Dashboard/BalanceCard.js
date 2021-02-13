@@ -56,8 +56,8 @@ export default function BalanceCard() {
     const classes = useStyles();
     return (
         <React.Fragment>
-            <Title>Current Balance</Title>
-            <Typography component="p" variant="h4">
+            <Title align="center">Current Balance</Title>
+            <Typography component="p" variant="h4" align="center">
                 {balance} RT
             </Typography>
             <Typography
@@ -68,11 +68,11 @@ export default function BalanceCard() {
             </Typography>
             <div>
                 {employer ? (
-                    <Link color="primary" href="#" onClick={preventDefault}>
+                    <Link color="primary" href="/buytoken">
                         Buy tokens
                     </Link>
                 ) : (
-                    <Link color="primary" href="#" onClick={preventDefault}>
+                    <Link color="primary" href="redeem">
                         reedeem tokens
                     </Link>
                 )}
