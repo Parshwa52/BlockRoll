@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -38,10 +38,30 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Textcoloroutput(props){
-    return(
-        <Typography variant="body2">1</Typography>
-    )
+const RedTextTypography = withStyles({
+    root: {
+      color: "red"
+    }
+  })(Typography);
+
+const GreenTextTypography = withStyles({
+    root: {
+        color: "green"
+    }
+})(Typography);
+
+const DesiredTypography = (props) =>{
+    var result;
+
+    if(props.color === 'red'){
+        result = <RedTextTypography> -{props.value} </RedTextTypography>
+    }
+
+    else{
+        result = <GreenTextTypography> +{props.value} </GreenTextTypography>
+    }
+
+    return result;
 };
 
 export default function Review() {
@@ -57,8 +77,7 @@ export default function Review() {
                 {products.map((product) => (
                     <ListItem className={classes.listItem} key={product.name}>
                         <ListItemText primary={product.name} secondary={product.desc} />
-                        {product.color === 'red'}
-                        <Typography color = "red" variant="body2">{product.price}</Typography>
+                        <DesiredTypography color={product.color} value = {product.price}></DesiredTypography>
                     </ListItem>
                 ))}
 

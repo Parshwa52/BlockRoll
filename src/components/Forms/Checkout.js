@@ -26,7 +26,6 @@ const INIT_DATA = {
     delaycostperday: undefined,
 };
 
-
 const useStyles = makeStyles((theme) => ({
     appBar: {
         position: "relative",
