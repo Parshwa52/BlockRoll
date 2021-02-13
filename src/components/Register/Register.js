@@ -11,7 +11,7 @@ import Select from "@material-ui/core/Select";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import sideimage from "../assets/images/download.jpg";
+import sideimage from "../assets/images/f1.jpg";
 import { InputLabel, MenuItem, FormControl } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -72,7 +72,7 @@ function Register() {
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image}>
-        <img src={sideimage} width="1080" height="648" alt="Side Image"></img>
+        <img src={sideimage} width="100%" height="100%" alt="Side Image"></img>
       </Grid>
 
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>

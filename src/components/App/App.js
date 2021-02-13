@@ -119,6 +119,7 @@ const App = () => {
                         <Route path="/payroll/" component={Checkout} />
                         <Route path="/send/" component={DirectSend} />
                         <Route path="/reedem/" component={Redeem} />
+                        <Route path="/register/" component={Register} />
                     </Router_Switch>
                 </React.Fragment>
             </BlockchainContext.Provider>
