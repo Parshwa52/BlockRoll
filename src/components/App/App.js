@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Switch as Router_Switch, Route } from "react-router-dom";
-import Test from "../Test/Test";
+// import Test from "../Test/Checkout";
 import Dashboard from "../Dashboard/Dashboard";
 import Checkout from "../Forms/Checkout";
 import Landing from "../Landing/Landing";
 import Web3 from 'web3';
 import freelance from './../../abis/freelance.json';
 import DirectSend from "../DirectForm/Checkout";
+import Redeem from "../Redeem/Checkout"
 class App extends Component
  {
   constructor(props) {
@@ -95,10 +96,11 @@ class App extends Component
        <React.Fragment>
             <Router_Switch>
                 <Route path="/" component={Landing} exact />
-                <Route path="/test/" component={Test} />
+                {/* <Route path="/test/" component={Test} /> */}
                 <Route path="/dash/" component={Dashboard} />
                 <Route path="/payroll/" component={Checkout} />
                 <Route path="/send/" component={DirectSend} />
+                <Route path="/redeem/" component={Redeem} />
             </Router_Switch>
         </React.Fragment>
         

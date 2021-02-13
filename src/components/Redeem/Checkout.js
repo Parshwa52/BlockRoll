@@ -18,21 +18,14 @@ import Review from "./Review";
 import { useAddress } from "./utils";
 
 const INIT_DATA = {
-    payrate: undefined,
-    duration: undefined,
-    leaves: undefined,
-    leavecost: undefined,
-    delayeddays: undefined,
-    delaycostperday: undefined,
+    bankName: undefined,
+    AccNo: undefined,
+    
 };
 
 const initial_address_form = {
-    Paymentrate: "",
-    Duration: "",
-    Leaves: "",
-    Leavecost: "",
-    delayeddays: "",
-    delaycostperday: "",
+    bankName : "",
+    AccNo : ""
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -72,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const steps = ["Payment details", "Payroll Details", "Transaction Summary"];
+const steps = ["Conversion details", "Bank Details", "Transaction Summary"];
 
 export default function Checkout() {
     const classes = useStyles();
@@ -86,9 +79,10 @@ export default function Checkout() {
 
     const handleNext = () => {
         if (activeStep == 0 && address === "") {
-            alert("Enter valid Username");
+            alert("Enter valid token");
             return;
         }
+        
         setActiveStep(activeStep + 1);
     };
 
@@ -159,13 +153,10 @@ export default function Checkout() {
                         {activeStep === steps.length ? (
                             <React.Fragment>
                                 <Typography variant="h5" gutterBottom>
-                                    Thank you for your order.
+                                    Thank you .
                                 </Typography>
                                 <Typography variant="subtitle1">
-                                    Your order number is #2001539. We have
-                                    emailed your order confirmation, and will
-                                    send you an update when your order has
-                                    shipped.
+                                    Your transaction number is #2001539. 
                                 </Typography>
                             </React.Fragment>
                         ) : (
