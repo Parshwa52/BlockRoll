@@ -20,6 +20,7 @@ export default function BalanceCard() {
     const { web3, accounts, contract } = useContext(BlockchainContext);
     const [balance, setBalance] = useState();
     const [date, setDate] = useState(new Date());
+    const [employer, setEmployer] = useState(false);
 
     useEffect(() => {
         const getBal = async () => {
@@ -33,7 +34,23 @@ export default function BalanceCard() {
                 console.log("Somthing went wrong!");
             }
         };
+        const isEmployer = async () => {
+            try {
+                const tag = await contract.methods
+                    .getIdentityType(accounts[0])
+                    .call();
+                if (tag === "employer") {
+                    setEmployer(true);
+                    return;
+                }
+                setEmployer(false);
+            } catch (err) {
+                console.log("Somthing went wrong in BalanceCard.js");
+            }
+        };
+
         getBal();
+        isEmployer();
     }, [web3, accounts, contract]);
 
     const classes = useStyles();
@@ -41,7 +58,7 @@ export default function BalanceCard() {
         <React.Fragment>
             <Title>Current Balance</Title>
             <Typography component="p" variant="h4">
-                ₹{balance}
+                {balance} RT
             </Typography>
             <Typography
                 color="textSecondary"
@@ -50,9 +67,15 @@ export default function BalanceCard() {
                 {date.toLocaleString()}
             </Typography>
             <div>
-                <Link color="primary" href="#" onClick={preventDefault}>
-                    reedeem tokens
-                </Link>
+                {employer ? (
+                    <Link color="primary" href="#" onClick={preventDefault}>
+                        Buy tokens
+                    </Link>
+                ) : (
+                    <Link color="primary" href="#" onClick={preventDefault}>
+                        reedeem tokens
+                    </Link>
+                )}
             </div>
         </React.Fragment>
     );

@@ -24,6 +24,7 @@ import Deposits from "./Deposits";
 import Orders from "./Orders";
 import LogoutMenu from "../LogoutMenu/LogoutMenu";
 import BalanceCard from "./BalanceCard";
+import AddPayroll from "./AddPayroll";
 
 import BlockchainContext from "../../contexts/BlockChainContext";
 
@@ -199,7 +200,7 @@ export default function Dashboard() {
                         {/* Recent Deposits */}
                         <Grid item xs={12} md={4} lg={3}>
                             <Paper className={fixedHeightPaper}>
-                                <Deposits title_text="t1" />
+                                <AddPayroll />
                             </Paper>
                         </Grid>
 

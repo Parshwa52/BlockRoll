@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Title from "./Title";
-
-import BlockchainContext from "../../contexts/BlockChainContext";
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 function preventDefault(event) {
     event.preventDefault();
@@ -16,44 +15,24 @@ const useStyles = makeStyles({
     },
 });
 
-export default function BalanceCard() {
-    const { web3, accounts, contract } = useContext(BlockchainContext);
-    const [balance, setBalance] = useState();
-    const [date, setDate] = useState(new Date());
-
-    useEffect(() => {
-        const getBal = async () => {
-            try {
-                const bal = await contract.methods
-                    .getBalance(accounts[0])
-                    .call();
-                setBalance(bal);
-                setDate(new Date());
-            } catch (err) {
-                console.log("Somthing went wrong!");
-            }
-        };
-        getBal();
-    }, [web3, accounts, contract]);
-
+export default function AddPayroll() {
     const classes = useStyles();
     return (
         <React.Fragment>
-            <Title>Current Balance</Title>
+            <Title>Pay Payroll</Title>
             <Typography component="p" variant="h4">
-                ₹{balance}
+                <Button color="primary">
+                    <Link to="/payroll">Calculate</Link>
+                </Button>
             </Typography>
+
             <Typography
                 color="textSecondary"
                 className={classes.depositContext}
             >
-                {date.toLocaleString()}
+                Calculate Payroll and Pay your Employees
             </Typography>
-            <div>
-                <Link color="primary" href="#" onClick={preventDefault}>
-                    reedeem tokens
-                </Link>
-            </div>
+            <div></div>
         </React.Fragment>
     );
 }

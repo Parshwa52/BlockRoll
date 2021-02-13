@@ -11,7 +11,8 @@ import Web3 from "web3";
 import freelance from "./../../abis/freelance.json";
 import DirectSend from "../DirectForm/Checkout";
 import BlockchainContext from "../../contexts/BlockChainContext";
-import Redeem from "../Redeem/Checkout";
+import Redeem from "../Redeem/BuyTokens";
+
 const getWeb3 = async () => {
     let tempWeb3 = undefined;
     if (window.ethereum) {
@@ -97,7 +98,7 @@ const App = () => {
         const verify = async () => {
             try {
                 const balance = await contract.methods
-                    .getBalance("0x7ad6Bd0C6da5aD84B3b5b1FE15a7e37771873061")
+                    .getBalance("0x2B586DB80608cDC2aa8564A43d8C899d832c37ad")
                     .call();
                 console.log(balance);
             } catch (err) {

@@ -5,10 +5,10 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 
-export default function PaymentForm({ token, address, setUsername }) {
+export default function PaymentForm({ tokens, address, setTokens }) {
     const [error, setError] = useState(false);
-    const onUsernameChange = (e) => {
-        setUsername(e.target.value);
+    const onTokenChange = (e) => {
+        setTokens(e.target.value);
     };
     return (
         <React.Fragment>
@@ -20,7 +20,6 @@ export default function PaymentForm({ token, address, setUsername }) {
                     <TextField
                         error={address === ""}
                         id="address"
-                        label="Account Address"
                         variant="filled"
                         placeholder="Enter Valid Token"
                         value={address}
@@ -33,8 +32,9 @@ export default function PaymentForm({ token, address, setUsername }) {
                         required
                         id="token"
                         label="token"
-                        value={token}
-                        onChange={onUsernameChange}
+                        value={tokens}
+                        type="number"
+                        onChange={onTokenChange}
                         fullWidth
                         autoComplete="cc-name"
                     />

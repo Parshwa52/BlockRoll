@@ -3,14 +3,13 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 
-export default function AddressForm({addressform,setAddressformState}) {
-    
-    const handleChange = e =>{
+export default function AddressForm({ addressform, setAddressformState }) {
+    const handleChange = (e) => {
         const value = e.target.value;
         setAddressformState({
             ...addressform,
-            [e.target.name] : value
-        }); 
+            [e.target.name]: value,
+        });
     };
 
     return (
@@ -25,8 +24,9 @@ export default function AddressForm({addressform,setAddressformState}) {
                         id="Paymentrate"
                         name="Paymentrate"
                         label="Payment Rate"
+                        type="number"
                         fullWidth
-                        onChange = {handleChange}
+                        onChange={handleChange}
                         value={addressform.Paymentrate}
                     />
                 </Grid>
@@ -36,8 +36,9 @@ export default function AddressForm({addressform,setAddressformState}) {
                         id="Duration"
                         name="Duration"
                         label="Duration"
+                        type="number"
                         fullWidth
-                        onChange = {handleChange}
+                        onChange={handleChange}
                         value={addressform.Duration}
                     />
                 </Grid>
@@ -47,8 +48,9 @@ export default function AddressForm({addressform,setAddressformState}) {
                         id="Leaves"
                         name="Leaves"
                         label="Leaves"
+                        type="number"
                         fullWidth
-                        onChange = {handleChange}
+                        onChange={handleChange}
                         value={addressform.Leaves}
                     />
                 </Grid>
@@ -57,10 +59,11 @@ export default function AddressForm({addressform,setAddressformState}) {
                         id="Leavecost"
                         name="Leavecost"
                         label="Leavecost"
+                        type="number"
                         required
                         fullWidth
                         value={addressform.Leavecost}
-                        onChange = {handleChange}
+                        onChange={handleChange}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -69,8 +72,9 @@ export default function AddressForm({addressform,setAddressformState}) {
                         id="delayeddays"
                         name="delayeddays"
                         label="delayeddays"
+                        type="number"
                         fullWidth
-                        onChange = {handleChange}
+                        onChange={handleChange}
                         value={addressform.delayeddays}
                     />
                 </Grid>
@@ -79,9 +83,10 @@ export default function AddressForm({addressform,setAddressformState}) {
                         id="delaycostperday"
                         name="delaycostperday"
                         label="delaycostperday"
+                        type="number"
                         fullWidth
                         required
-                        onChange = {handleChange}
+                        onChange={handleChange}
                         value={addressform.delaycostperday}
                     />
                 </Grid>

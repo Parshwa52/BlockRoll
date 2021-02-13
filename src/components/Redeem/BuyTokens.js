@@ -13,18 +13,19 @@ import Typography from "@material-ui/core/Typography";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
-import BlockchainContext from "../../contexts/BlockChainContext";
 
+import BlockchainContext from "../../contexts/BlockChainContext";
 // custom imports
 import { useAddress } from "./utils";
 
+const INIT_DATA = {
+    bankName: undefined,
+    AccNo: undefined,
+};
+
 const initial_address_form = {
-    Paymentrate: undefined,
-    Duration: undefined,
-    Leaves: undefined,
-    Leavecost: undefined,
-    delayeddays: undefined,
-    delaycostperday: undefined,
+    bankName: "",
+    AccNo: "",
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -64,58 +65,40 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const steps = ["Payment details", "Payroll Details", "Transaction Summary"];
+const steps = ["Buy Tokens"];
 
 export default function Checkout() {
     const { web3, accounts, contract } = React.useContext(BlockchainContext);
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
-    const [loading, setLoading] = React.useState(false);
     // add data sates here
-    const [username, address, setUsername] = useAddress("");
-    const [addressform, setAddressformState] = React.useState(
-        initial_address_form
-    );
+    const [formData, setFormData] = React.useState(INIT_DATA);
+    const [tokens, setTokens] = React.useState(undefined);
+    const [loading, setLoading] = React.useState(false);
 
-    const doTransaction = async () => {
+    const buyToken = async () => {
         setLoading(true);
         try {
+            const tokenPrice = await contract.methods.tokenPrice().call();
+            const tipAmount = tokenPrice * tokens;
             await contract.methods
-                .calculatetokens(
-                    addressform.Paymentrate,
-                    addressform.Duration,
-                    addressform.Leaves,
-                    addressform.Leavecost,
-                    addressform.delayeddays,
-                    addressform.delaycostperday,
-
-                    accounts[0],
-                    address,
-                    new Date().toLocaleString()
-                )
-                .send({ from: accounts[0] });
-            setLoading(false);
+                .buyTokens(tokens)
+                .send({ from: accounts[0], value: tipAmount });
         } catch (err) {
-            console.log("Error in Checkout.js payroll");
+            console.log("Failed while buying token");
         }
+        setLoading(false);
     };
 
     const handleNext = () => {
-        if (activeStep == 0 && address === "") {
-            alert("Enter valid Username");
-            return;
-        }
-        if (activeStep == 1) {
-            for (let obj in addressform) {
-                if (addressform[obj] === undefined || addressform[obj] == "") {
-                    alert("Enter all fields");
-                    return;
-                }
+        if (activeStep == 0) {
+            if (tokens == undefined || tokens <= 0) {
+                alert("Invalid tokens count");
+                return;
             }
+            buyToken();
         }
-        if (activeStep == 2) {
-            doTransaction();
-        }
+
         setActiveStep(activeStep + 1);
     };
 
@@ -128,24 +111,9 @@ export default function Checkout() {
             case 0:
                 return (
                     <PaymentForm
-                        username={username}
-                        address={address}
-                        setUsername={setUsername}
-                    />
-                );
-            case 1:
-                return (
-                    <AddressForm
-                        addressform={addressform}
-                        setAddressformState={setAddressformState}
-                    />
-                );
-            case 2:
-                return (
-                    <Review
-                        addressform={addressform}
-                        username={username}
-                        address={address}
+                        tokens={tokens}
+                        address={accounts[0]}
+                        setTokens={setTokens}
                     />
                 );
             default:
@@ -190,11 +158,11 @@ export default function Checkout() {
                                 ) : (
                                     <>
                                         <Typography variant="h5" gutterBottom>
-                                            Payment Successful.
+                                            Transaction Successful
                                         </Typography>
                                         <Typography variant="subtitle1">
-                                            4080.00 rupee tokens has been
-                                            transferred to Parshwa
+                                            {tokens} have beed added to your
+                                            account {accounts[0]}
                                         </Typography>
                                     </>
                                 )}
