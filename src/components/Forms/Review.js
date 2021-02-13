@@ -5,14 +5,19 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
+import {getpayRate,getDuration,getOriginalPayment,getLeavesCost,getDelayCost} from './utils'
+
+// This is the blockchain object we receive using web3
+const APIobject = 100;
 
 const products = [
-    { name: 'Product 1', desc: 'A nice thing', price: '$9.99' },
-    { name: 'Product 2', desc: 'Another thing', price: '$3.45' },
-    { name: 'Product 3', desc: 'Something else', price: '$6.51' },
-    { name: 'Product 4', desc: 'Best thing of all', price: '$14.11' },
-    { name: 'Shipping', desc: '', price: 'Free' },
+    { name: 'PayRate', desc: 'Payment Rate',color : 'green', price: getpayRate(APIobject) },
+    { name: 'Duration', desc: 'Duration of Task',color : 'green', price: getDuration(APIobject) },
+    { name: 'OriginalPayment', desc: 'Payment', color : 'green',price: getOriginalPayment(APIobject) },
+    { name: 'Leaves Cost', desc: 'Amount deducted for leaves',color : 'red', price: getLeavesCost(APIobject) },
+    { name: 'Delay Cost', desc: 'Amount deducted for delays', color : 'red',price: getDelayCost(APIobject) },
 ];
+
 const addresses = ['1 Material-UI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
 const payments = [
     { name: 'Card type', detail: 'Visa' },
@@ -33,21 +38,30 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function Textcoloroutput(props){
+    return(
+        <Typography variant="body2">1</Typography>
+    )
+};
+
 export default function Review() {
     const classes = useStyles();
 
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
-                Order summary
+                Transaction Summary
       </Typography>
             <List disablePadding>
+                
                 {products.map((product) => (
                     <ListItem className={classes.listItem} key={product.name}>
                         <ListItemText primary={product.name} secondary={product.desc} />
-                        <Typography variant="body2">{product.price}</Typography>
+                        {product.color === 'red'}
+                        <Typography color = "red" variant="body2">{product.price}</Typography>
                     </ListItem>
                 ))}
+
                 <ListItem className={classes.listItem}>
                     <ListItemText primary="Total" />
                     <Typography variant="subtitle1" className={classes.total}>

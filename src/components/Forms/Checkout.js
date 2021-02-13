@@ -14,18 +14,6 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-      </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -69,9 +57,9 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 function getStepContent(step) {
     switch (step) {
         case 0:
-            return <AddressForm />;
-        case 1:
             return <PaymentForm />;
+        case 1:
+            return <AddressForm />;
         case 2:
             return <Review />;
         default:
@@ -83,6 +71,28 @@ export default function Checkout() {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     // add data sates here
+
+    const initialState = {
+        username : "",
+        payrate : undefined,
+        duration : undefined,
+        leaves : undefined,
+        leavecost : undefined,
+        delayeddays : undefined,
+        delaycostperday : undefined
+    }
+
+    const [formData, setFormData] = React.useState(initialState);
+
+    // const handleChange = e =>{
+        
+    //     const value = e.target.value;
+
+    //     setformState({
+    //         ...formState,
+    //         [e.target.name] : value
+    //     });
+    // }
 
     const handleNext = () => {
         setActiveStep(activeStep + 1);
@@ -98,14 +108,14 @@ export default function Checkout() {
             <AppBar position="absolute" color="default" className={classes.appBar}>
                 <Toolbar>
                     <Typography variant="h6" color="inherit" noWrap>
-                        Company name
+                        BlockRoll
           </Typography>
                 </Toolbar>
             </AppBar>
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
                     <Typography component="h1" variant="h4" align="center">
-                        Checkout
+                        Transaction 
                     </Typography>
                     <Stepper activeStep={activeStep} className={classes.stepper}>
                         {steps.map((label) => (
@@ -147,7 +157,6 @@ export default function Checkout() {
                             )}
                     </React.Fragment>
                 </Paper>
-                <Copyright />
             </main>
         </React.Fragment>
     );
