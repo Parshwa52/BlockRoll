@@ -1,8 +1,8 @@
-import React from 'react';
-import Link from '@material-ui/core/Link';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Title from './Title';
+import React from "react";
+import Link from "@material-ui/core/Link";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Title from "./Title";
 
 function preventDefault(event) {
     event.preventDefault();
@@ -14,21 +14,24 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Deposits(props) {
+export default function Deposits({ title, value, date }) {
     const classes = useStyles();
     return (
         <React.Fragment>
-            <Title>{props.title_text}</Title>
+            <Title>{title}</Title>
             <Typography component="p" variant="h4">
-                $3,024.00
-      </Typography>
-            <Typography color="textSecondary" className={classes.depositContext}>
-                on 15 March, 2019
-      </Typography>
+                {value}
+            </Typography>
+            <Typography
+                color="textSecondary"
+                className={classes.depositContext}
+            >
+                {date || "13 Feb, 2021"}
+            </Typography>
             <div>
                 <Link color="primary" href="#" onClick={preventDefault}>
                     reedeem tokens
-        </Link>
+                </Link>
             </div>
         </React.Fragment>
     );
