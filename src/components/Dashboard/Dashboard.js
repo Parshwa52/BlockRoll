@@ -22,6 +22,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import LogoutMenu from '../LogoutMenu/LogoutMenu';
 
 function Copyright() {
     return (
@@ -149,6 +150,9 @@ export default function Dashboard() {
                         <Badge badgeContent={4} color="secondary">
                             <NotificationsIcon />
                         </Badge>
+                    </IconButton>
+                    <IconButton color="inherit">
+                        <LogoutMenu></LogoutMenu>
                     </IconButton>
                 </Toolbar>
             </AppBar>
