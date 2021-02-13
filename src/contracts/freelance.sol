@@ -19,6 +19,7 @@ contract freelance {
     
     mapping (string=>address) nametoadd;
     
+    
     event Sell(address _buyer, uint256 _amount);
 
     constructor(RupeeToken _tokenContract) public {
