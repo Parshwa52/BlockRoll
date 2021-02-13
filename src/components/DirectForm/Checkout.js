@@ -8,7 +8,6 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
@@ -115,7 +114,7 @@ export default function Checkout() {
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
                     <Typography component="h1" variant="h4" align="center">
-                        Transaction
+                        Send BlockRolls
                     </Typography>
                     <Stepper
                         activeStep={activeStep}

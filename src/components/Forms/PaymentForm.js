@@ -20,6 +20,7 @@ export default function PaymentForm({ username, address, setUsername }) {
                     <TextField
                         error={address === ""}
                         id="address"
+                        label="Account Address"
                         variant="filled"
                         placeholder="Enter Valid username"
                         value={address}
