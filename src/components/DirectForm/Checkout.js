@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -10,30 +10,11 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
-import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 
 // custom imports
 import { useAddress } from "./utils";
-
-const INIT_DATA = {
-    payrate: undefined,
-    duration: undefined,
-    leaves: undefined,
-    leavecost: undefined,
-    delayeddays: undefined,
-    delaycostperday: undefined,
-};
-
-const initial_address_form = {
-    Paymentrate: "",
-    Duration : "",
-    Leaves : "",
-    Leavecost : "",
-    delayeddays : "",
-    delaycostperday : ""
-}
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -72,15 +53,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const steps = ["Payment details", "Payroll Details", "Transaction Summary"];
+const steps = ["Payment details", "Transaction Summary"];
 
 export default function Checkout() {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(0);
-    // add data sates here
-    const [formData, setFormData] = React.useState(INIT_DATA);
+    const [activeStep, setActiveStep] = useState(0);
     const [username, address, setUsername] = useAddress("");
-    const [addressform,setAddressformState] = React.useState(initial_address_form);
+    const [amount, setAmount] = useState();
 
     const handleNext = () => {
         if (activeStep == 0 && address === "") {
@@ -102,17 +81,18 @@ export default function Checkout() {
                         username={username}
                         address={address}
                         setUsername={setUsername}
+                        amount={amount}
+                        setAmount={setAmount}
                     />
                 );
             case 1:
-                return <AddressForm 
-                addressform={addressform}
-                setAddressformState={setAddressformState}
-                />;
-            case 2:
-                return <Review
-                addressform={addressform}
-                />;
+                return (
+                    <Review
+                        amount={amount}
+                        username={username}
+                        address={address}
+                    />
+                );
             default:
                 throw new Error("Unknown step");
         }
