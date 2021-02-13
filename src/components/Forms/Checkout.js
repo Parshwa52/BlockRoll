@@ -26,6 +26,15 @@ const INIT_DATA = {
     delaycostperday: undefined,
 };
 
+const initial_address_form = {
+    Paymentrate: "",
+    Duration : "",
+    Leaves : "",
+    Leavecost : "",
+    delayeddays : "",
+    delaycostperday : ""
+}
+
 const useStyles = makeStyles((theme) => ({
     appBar: {
         position: "relative",
@@ -71,6 +80,7 @@ export default function Checkout() {
     // add data sates here
     const [formData, setFormData] = React.useState(INIT_DATA);
     const [username, address, setUsername] = useAddress("");
+    const [addressform,setAddressformState] = React.useState(initial_address_form);
 
     const initialState = {
         username : "",
@@ -111,9 +121,14 @@ export default function Checkout() {
                     />
                 );
             case 1:
-                return <AddressForm />;
+                return <AddressForm 
+                addressform={addressform}
+                setAddressformState={setAddressformState}
+                />;
             case 2:
-                return <Review />;
+                return <Review
+                addressform={addressform}
+                />;
             default:
                 throw new Error("Unknown step");
         }

@@ -5,18 +5,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
-import {getpayRate,getDuration,getOriginalPayment,getLeavesCost,getDelayCost} from './utils'
+import {getTotal} from './utils'
 
 // This is the blockchain object we receive using web3
 const APIobject = 100;
-
-const products = [
-    { name: 'PayRate', desc: 'Payment Rate',color : 'green', price: getpayRate(APIobject) },
-    { name: 'Duration', desc: 'Duration of Task',color : 'green', price: getDuration(APIobject) },
-    { name: 'OriginalPayment', desc: 'Payment', color : 'green',price: getOriginalPayment(APIobject) },
-    { name: 'Leaves Cost', desc: 'Amount deducted for leaves',color : 'red', price: getLeavesCost(APIobject) },
-    { name: 'Delay Cost', desc: 'Amount deducted for delays', color : 'red',price: getDelayCost(APIobject) },
-];
 
 const addresses = ['1 Material-UI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
 const payments = [
@@ -64,8 +56,17 @@ const DesiredTypography = (props) =>{
     return result;
 };
 
-export default function Review() {
+export default function Review({addressform}) {
     const classes = useStyles();
+    const temp = "dfrgt";
+
+    const products = [
+        { name: 'PayRate', desc: 'Payment Rate',color : 'green', price: addressform.Paymentrate },
+        { name: 'Duration', desc: 'Duration of Task',color : 'green', price: addressform.Duration },
+        { name: 'OriginalPayment', desc: 'Payment', color : 'green',price: addressform.Paymentrate * addressform.Duration },
+        { name: 'Leaves Cost', desc: 'Amount deducted for leaves',color : 'red', price: addressform.Leaves * addressform.Leavecost},
+        { name: 'Delay Cost', desc: 'Amount deducted for delays', color : 'red',price:addressform.delayeddays * addressform.delaycostperday },
+    ];
 
     return (
         <React.Fragment>
@@ -84,7 +85,7 @@ export default function Review() {
                 <ListItem className={classes.listItem}>
                     <ListItemText primary="Total" />
                     <Typography variant="subtitle1" className={classes.total}>
-                        $34.06
+                        {getTotal(addressform)}
                     </Typography>
                 </ListItem>
             </List>

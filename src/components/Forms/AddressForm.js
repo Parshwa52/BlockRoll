@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 
-export default function AddressForm() {
+export default function AddressForm({addressform,setAddressformState}) {
+    
+    const handleChange = e =>{
+        const value = e.target.value;
+        setAddressformState({
+            ...addressform,
+            [e.target.name] : value
+        }); 
+    };
+
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
@@ -17,6 +26,8 @@ export default function AddressForm() {
                         name="Paymentrate"
                         label="Payment Rate"
                         fullWidth
+                        onChange = {handleChange}
+                        value={addressform.Paymentrate}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -26,6 +37,8 @@ export default function AddressForm() {
                         name="Duration"
                         label="Duration"
                         fullWidth
+                        onChange = {handleChange}
+                        value={addressform.Duration}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -35,6 +48,8 @@ export default function AddressForm() {
                         name="Leaves"
                         label="Leaves"
                         fullWidth
+                        onChange = {handleChange}
+                        value={addressform.Leaves}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -44,6 +59,8 @@ export default function AddressForm() {
                         label="Leavecost"
                         required
                         fullWidth
+                        value={addressform.Leavecost}
+                        onChange = {handleChange}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -53,6 +70,8 @@ export default function AddressForm() {
                         name="delayeddays"
                         label="delayeddays"
                         fullWidth
+                        onChange = {handleChange}
+                        value={addressform.delayeddays}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -62,6 +81,8 @@ export default function AddressForm() {
                         label="delaycostperday"
                         fullWidth
                         required
+                        onChange = {handleChange}
+                        value={addressform.delaycostperday}
                     />
                 </Grid>
             </Grid>
