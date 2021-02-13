@@ -2,15 +2,16 @@ import React, { Component, useEffect, useState } from "react";
 import "./App.css";
 import { Switch as Router_Switch, Route } from "react-router-dom";
 import Test from "../Test/Test";
+import Register from "../Register/Register";
+// import Test from "../Test/Checkout";
 import Dashboard from "../Dashboard/Dashboard";
 import Checkout from "../Forms/Checkout";
 import Landing from "../Landing/Landing";
 import Web3 from "web3";
 import freelance from "./../../abis/freelance.json";
 import DirectSend from "../DirectForm/Checkout";
-
 import BlockchainContext from "../../contexts/BlockChainContext";
-
+import Redeem from "../Redeem/Checkout";
 const getWeb3 = async () => {
     let tempWeb3 = undefined;
     if (window.ethereum) {
@@ -116,6 +117,7 @@ const App = () => {
                         <Route path="/dash/" component={Dashboard} />
                         <Route path="/payroll/" component={Checkout} />
                         <Route path="/send/" component={DirectSend} />
+                        <Route path="/reedem/" component={Redeem} />
                     </Router_Switch>
                 </React.Fragment>
             </BlockchainContext.Provider>
