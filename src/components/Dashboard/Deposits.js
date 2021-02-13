@@ -27,7 +27,7 @@ export default function Deposits(props) {
       </Typography>
             <div>
                 <Link color="primary" href="#" onClick={preventDefault}>
-                    View balance
+                    reedeem tokens
         </Link>
             </div>
         </React.Fragment>
