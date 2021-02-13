@@ -24,19 +24,6 @@ import Deposits from './Deposits';
 import Orders from './Orders';
 import LogoutMenu from '../LogoutMenu/LogoutMenu';
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-      </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -114,8 +101,11 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
     },
     fixedHeight: {
-        height: 240,
+        height: 200,
     },
+    right:{
+        marginLeft : "auto",
+    }
 }));
 
 export default function Dashboard() {
@@ -178,17 +168,30 @@ export default function Dashboard() {
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid container spacing={3}>
                         {/* Chart */}
-                        <Grid item xs={12} md={8} lg={9}>
+                        {/* <Grid item xs={12} md={8} lg={9}>
                             <Paper className={fixedHeightPaper}>
                                 <Chart />
                             </Paper>
-                        </Grid>
+                        </Grid> */}
                         {/* Recent Deposits */}
                         <Grid item xs={12} md={4} lg={3}>
                             <Paper className={fixedHeightPaper}>
-                                <Deposits />
+                                <Deposits title_text = "t1" />
                             </Paper>
                         </Grid>
+
+                        <Grid item xs={12} md={4} lg={3} className={classes.right}>
+                            <Paper className={fixedHeightPaper}>
+                                <Deposits title_text = "t2"/>
+                            </Paper>
+                        </Grid>
+
+                        <Grid item xs={12} md={4} lg={3} className={classes.right}>
+                            <Paper className={fixedHeightPaper}>
+                                <Deposits title_text = "t3"/>
+                            </Paper>
+                        </Grid>
+        
                         {/* Recent Orders */}
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
@@ -197,7 +200,6 @@ export default function Dashboard() {
                         </Grid>
                     </Grid>
                     <Box pt={4}>
-                        <Copyright />
                     </Box>
                 </Container>
             </main>
