@@ -73,17 +73,17 @@ export default function Checkout() {
     const [username, address, setUsername] = useAddress("");
 
     const initialState = {
-        username : "",
-        payrate : undefined,
-        duration : undefined,
-        leaves : undefined,
-        leavecost : undefined,
-        delayeddays : undefined,
-        delaycostperday : undefined
-    }
-    
+        username: "",
+        payrate: undefined,
+        duration: undefined,
+        leaves: undefined,
+        leavecost: undefined,
+        delayeddays: undefined,
+        delaycostperday: undefined,
+    };
+
     // const handleChange = e =>{
-        
+
     //     const value = e.target.value;
 
     //     setformState({
@@ -93,6 +93,10 @@ export default function Checkout() {
     // }
 
     const handleNext = () => {
+        if (activeStep == 0 && address === "") {
+            alert("Enter valid Username");
+            return;
+        }
         setActiveStep(activeStep + 1);
     };
 
@@ -130,13 +134,13 @@ export default function Checkout() {
                 <Toolbar>
                     <Typography variant="h6" color="inherit" noWrap>
                         BlockRoll
-          </Typography>
+                    </Typography>
                 </Toolbar>
             </AppBar>
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
                     <Typography component="h1" variant="h4" align="center">
-                        Transaction 
+                        Transaction
                     </Typography>
                     <Stepper
                         activeStep={activeStep}
