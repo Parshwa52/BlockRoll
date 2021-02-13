@@ -7504,7 +7504,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.23",
-  "updatedAt": "2021-02-13T13:36:03.472Z",
+  "updatedAt": "2021-02-13T17:59:23.943Z",
   "devdoc": {
     "details": "Wrappers over Solidity's arithmetic operations.",
     "methods": {}

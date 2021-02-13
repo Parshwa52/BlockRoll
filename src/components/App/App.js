@@ -94,15 +94,13 @@ const App = () => {
 
     useEffect(() => {
         const verify = async () => {
-            if (
-                typeof web3 !== "undefined" &&
-                typeof accounts !== "undefined" &&
-                typeof contract !== "undefined"
-            ) {
+            try {
                 const balance = await contract.methods
-                    .getBalance("0x3b30E9372350A7f8B221e5822652bf1e2dAfe85A")
+                    .getBalance("0x7ad6Bd0C6da5aD84B3b5b1FE15a7e37771873061")
                     .call();
                 console.log(balance);
+            } catch (err) {
+                console.log("error from App.js", contract);
             }
         };
         verify();
