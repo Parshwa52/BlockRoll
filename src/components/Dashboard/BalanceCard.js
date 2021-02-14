@@ -73,7 +73,7 @@ export default function BalanceCard() {
                     </Link>
                 ) : (
                     <Link color="primary" href="redeem">
-                        reedeem tokens
+                      
                     </Link>
                 )}
             </div>
