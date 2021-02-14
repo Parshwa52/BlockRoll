@@ -11,7 +11,8 @@ import Web3 from "web3";
 import freelance from "./../../abis/freelance.json";
 import DirectSend from "../DirectForm/Checkout";
 import BlockchainContext from "../../contexts/BlockChainContext";
-import Redeem from "../Redeem/BuyTokens";
+import BuyTokens from "../Redeem/BuyTokens";
+import Reedem from "../Redeem/Checkout";
 
 const getWeb3 = async () => {
     let tempWeb3 = undefined;
@@ -57,6 +58,12 @@ const App = () => {
             const networkId = await tempWeb3.eth.net.getId();
             let freelancecon;
 
+            const listener = (accs) => {
+                setAccounts(accs);
+            };
+
+            window.ethereum.on("accountsChanged", listener);
+
             // window.ethereum.on(
             //     "accountsChanged",
             //     function (accounts) {
@@ -94,20 +101,6 @@ const App = () => {
         init();
     }, []);
 
-    useEffect(() => {
-        const verify = async () => {
-            try {
-                const balance = await contract.methods
-                    .getBalance("0x2B586DB80608cDC2aa8564A43d8C899d832c37ad")
-                    .call();
-                console.log(balance);
-            } catch (err) {
-                console.log("error from App.js", contract);
-            }
-        };
-        verify();
-    }, [web3, accounts, contract]);
-
     return (
         <div>
             <BlockchainContext.Provider value={{ web3, accounts, contract }}>
@@ -118,7 +111,8 @@ const App = () => {
                         <Route path="/dash/" component={Dashboard} />
                         <Route path="/payroll/" component={Checkout} />
                         <Route path="/send/" component={DirectSend} />
-                        <Route path="/reedem/" component={Redeem} />
+                        <Route path="/buytoken/" component={BuyTokens} />
+                        <Route path="/reedem/" component={Reedem} />
                         <Route path="/register/" component={Register} />
                     </Router_Switch>
                 </React.Fragment>

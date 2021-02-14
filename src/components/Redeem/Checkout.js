@@ -20,12 +20,11 @@ import { useAddress } from "./utils";
 const INIT_DATA = {
     bankName: undefined,
     AccNo: undefined,
-    
 };
 
 const initial_address_form = {
-    bankName : "",
-    AccNo : ""
+    bankName: "",
+    AccNo: "",
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -82,7 +81,7 @@ export default function Checkout() {
             alert("Enter valid token");
             return;
         }
-        
+
         setActiveStep(activeStep + 1);
     };
 
@@ -130,7 +129,7 @@ export default function Checkout() {
             >
                 <Toolbar>
                     <Typography variant="h6" color="inherit" noWrap>
-                        BlockRoll
+                        <Link href="/dash">BlockRoll</Link>
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -156,7 +155,7 @@ export default function Checkout() {
                                     Thank you .
                                 </Typography>
                                 <Typography variant="subtitle1">
-                                    Your transaction number is #2001539. 
+                                    Your transaction number is #2001539.
                                 </Typography>
                             </React.Fragment>
                         ) : (

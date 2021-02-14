@@ -13,16 +13,19 @@ const useStyles = makeStyles({
     depositContext: {
         flex: 1,
     },
+    title: {
+        alignItems: "center",
+    },
 });
 
-export default function AddPayroll() {
+export default function SendToken() {
     const classes = useStyles();
     return (
         <React.Fragment>
-            <Title align="center">Pay Payroll</Title>
+            <Title className={classes.title}>Send Tokens</Title>
             <Typography component="p" variant="h4" align="center">
                 <Button color="primary">
-                    <Link to="/payroll">Calculate</Link>
+                    <Link to="/send">Send</Link>
                 </Button>
             </Typography>
 
@@ -30,7 +33,7 @@ export default function AddPayroll() {
                 color="textSecondary"
                 className={classes.depositContext}
             >
-                Calculate Payroll and Pay your Employees
+                Transfer tokens to your family and friends
             </Typography>
             <div></div>
         </React.Fragment>

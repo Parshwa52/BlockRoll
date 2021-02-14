@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -25,7 +25,7 @@ import Orders from "./Orders";
 import LogoutMenu from "../LogoutMenu/LogoutMenu";
 import BalanceCard from "./BalanceCard";
 import AddPayroll from "./AddPayroll";
-
+import SendToken from "./SendToken";
 import BlockchainContext from "../../contexts/BlockChainContext";
 
 const drawerWidth = 240;
@@ -121,16 +121,33 @@ export default function Dashboard() {
     const handleDrawerOpen = () => {
         setOpen(true);
     };
+    const [employer, setEmployer] = React.useState(false);
     const handleDrawerClose = () => {
         setOpen(false);
     };
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-    
-    
-
     //=======================Loading Context========================
     const { web3, accounts, contract } = useContext(BlockchainContext);
     //==============================================================
+
+    useEffect(() => {
+        const isEmployer = async () => {
+            try {
+                const tag = await contract.methods
+                    .getIdentityType(accounts[0])
+                    .call();
+                if (tag === "employer") {
+                    setEmployer(true);
+                    return;
+                }
+                setEmployer(false);
+            } catch (err) {
+                console.log("Somthing went wrong in Dashboard.js");
+            }
+        };
+
+        isEmployer();
+    }, [web3, accounts, contract]);
 
     console.log("This is from dashboard", contract);
     return (
@@ -203,11 +220,13 @@ export default function Dashboard() {
                             </Paper>
                         </Grid> */}
                         {/* Recent Deposits */}
-                        <Grid item xs={12} md={4} lg={3}>
-                            <Paper className={fixedHeightPaper}>
-                                <AddPayroll />
-                            </Paper>
-                        </Grid>
+                        {employer && (
+                            <Grid item xs={12} md={4} lg={3}>
+                                <Paper className={fixedHeightPaper}>
+                                    <AddPayroll />
+                                </Paper>
+                            </Grid>
+                        )}
 
                         <Grid
                             item
@@ -217,7 +236,7 @@ export default function Dashboard() {
                             className={classes.right}
                         >
                             <Paper className={fixedHeightPaper}>
-                                <Deposits title_text="t2" />
+                                <SendToken />
                             </Paper>
                         </Grid>
 

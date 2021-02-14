@@ -24,14 +24,9 @@ export class Header extends Component {
                     onClick={() => window.open('/Register')}
                     className="btn btn-custom btn-lg page-scroll"
                   >
-                    Register as FreeLancer
+                    Register
                   </button>{" "}
-                  <button
-                    onClick={() => window.open('/Register')}
-                    className="btn btn-custom btn-lg page-scroll"
-                  >
-                    Register as Employer
-                  </button>{" "}
+                  
                   
                   <button
                     onClick={() => window.open('/dash')}

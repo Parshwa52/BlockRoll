@@ -16,7 +16,7 @@ import Review from "./Review";
 import BlockchainContext from "../../contexts/BlockChainContext";
 
 // custom imports
-import { useAddress } from "./utils";
+import { getTotal, useAddress } from "./utils";
 
 const initial_address_form = {
     Paymentrate: undefined,
@@ -163,7 +163,7 @@ export default function Checkout() {
             >
                 <Toolbar>
                     <Typography variant="h6" color="inherit" noWrap>
-                        BlockRoll
+                        <Link href="/dash">BlockRoll</Link>
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -193,8 +193,8 @@ export default function Checkout() {
                                             Payment Successful.
                                         </Typography>
                                         <Typography variant="subtitle1">
-                                            4080.00 rupee tokens has been
-                                            transferred to Parshwa
+                                        {getTotal(addressform)} rupee tokens has been
+                                            transferred to {username}
                                         </Typography>
                                     </>
                                 )}
