@@ -13,26 +13,18 @@ import Typography from "@material-ui/core/Typography";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
+import BlockchainContext from "../../contexts/BlockChainContext";
 
 // custom imports
 import { useAddress } from "./utils";
 
-const INIT_DATA = {
-    payrate: undefined,
-    duration: undefined,
-    leaves: undefined,
-    leavecost: undefined,
+const initial_address_form = {
+    Paymentrate: undefined,
+    Duration: undefined,
+    Leaves: undefined,
+    Leavecost: undefined,
     delayeddays: undefined,
     delaycostperday: undefined,
-};
-
-const initial_address_form = {
-    Paymentrate: "",
-    Duration: "",
-    Leaves: "",
-    Leavecost: "",
-    delayeddays: "",
-    delaycostperday: "",
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -75,19 +67,54 @@ const useStyles = makeStyles((theme) => ({
 const steps = ["Payment details", "Payroll Details", "Transaction Summary"];
 
 export default function Checkout() {
+    const { web3, accounts, contract } = React.useContext(BlockchainContext);
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
+    const [loading, setLoading] = React.useState(false);
     // add data sates here
-    const [formData, setFormData] = React.useState(INIT_DATA);
     const [username, address, setUsername] = useAddress("");
     const [addressform, setAddressformState] = React.useState(
         initial_address_form
     );
 
+    const doTransaction = async () => {
+        setLoading(true);
+        try {
+            await contract.methods
+                .calculatetokens(
+                    addressform.Paymentrate,
+                    addressform.Duration,
+                    addressform.Leaves,
+                    addressform.Leavecost,
+                    addressform.delayeddays,
+                    addressform.delaycostperday,
+
+                    accounts[0],
+                    address,
+                    new Date().toLocaleString()
+                )
+                .send({ from: accounts[0] });
+            setLoading(false);
+        } catch (err) {
+            console.log("Error in Checkout.js payroll");
+        }
+    };
+
     const handleNext = () => {
         if (activeStep == 0 && address === "") {
             alert("Enter valid Username");
             return;
+        }
+        if (activeStep == 1) {
+            for (let obj in addressform) {
+                if (addressform[obj] === undefined || addressform[obj] == "") {
+                    alert("Enter all fields");
+                    return;
+                }
+            }
+        }
+        if (activeStep == 2) {
+            doTransaction();
         }
         setActiveStep(activeStep + 1);
     };
@@ -158,15 +185,19 @@ export default function Checkout() {
                     <React.Fragment>
                         {activeStep === steps.length ? (
                             <React.Fragment>
-                                <Typography variant="h5" gutterBottom>
-                                    Thank you for your order.
-                                </Typography>
-                                <Typography variant="subtitle1">
-                                    Your order number is #2001539. We have
-                                    emailed your order confirmation, and will
-                                    send you an update when your order has
-                                    shipped.
-                                </Typography>
+                                {loading ? (
+                                    "Loading..."
+                                ) : (
+                                    <>
+                                        <Typography variant="h5" gutterBottom>
+                                            Payment Successful.
+                                        </Typography>
+                                        <Typography variant="subtitle1">
+                                            4080.00 rupee tokens has been
+                                            transferred to Parshwa
+                                        </Typography>
+                                    </>
+                                )}
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
